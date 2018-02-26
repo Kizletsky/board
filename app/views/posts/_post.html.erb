@@ -1,0 +1,11 @@
+<article class="post">
+  <section class="post-head">
+    <h2><%= link_to post.title, post_path(post) %></h2>
+    <small>
+      <time><%= post.created_at.to_date %></time>
+    </small>
+  </section>
+  <section class="post-body">
+    <%= post.body %>
+  </section>
+</article>

@@ -1,16 +1,17 @@
 <%= form_for @post do |f| %>
 <div class="form-group">
     <%= f.label :title %>
-    <%= f.text_field :title %>
+    <%= f.text_field :title, class: "form-control" %>
 </div>
 
 <div class="form-group">
     <%= f.label :body %>
-    <%= f.text_area :body %>
+    <%= f.text_area :body, class: "form-control" %>
 </div>
 
 <div class="form-group">
-    <%= f.submit "Save" %>
+    <%= f.submit "Save", class: "btn btn-outline-primary" %>
+    <%= link_to "Back", :back, class: "btn btn-outline-secondary" %>
 </div>
 
 <% end %>
