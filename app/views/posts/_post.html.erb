@@ -5,7 +5,8 @@
       <time><%= post.created_at.to_date %></time>
     </small>
   </section>
-  <section class="post-body">
-    <%= post.body %>
+  <section class="post-body clearfix">
+    <%= image_tag(post.image.url(:thumb), class: "img-thumbnail thumb") if post.image? %>
+    <%= truncate(post.body, length: 160, separator: ' ') %>
   </section>
 </article>

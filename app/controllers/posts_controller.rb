@@ -17,7 +17,8 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     if @post.save
-      redirect_to @post
+      # redirect to created post and show flash
+      redirect_to @post, notice: "Post successfully created !"
     else
       render :new
     end
@@ -30,7 +31,7 @@ class PostsController < ApplicationController
   def update
     #set_post
     if @post.update_attributes(post_params)
-      redirect_to @post
+      redirect_to @post, notice: "Post successfully updated !"
     else
       render :edit
     end
@@ -39,7 +40,7 @@ class PostsController < ApplicationController
   def destroy
     #set_post
     @post.destroy
-    redirect_to posts_path
+    redirect_to posts_path, notice: "Post successfully deleted !"
   end
 
   private
@@ -49,7 +50,7 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :body)
+    params.require(:post).permit(:title, :body, :image, :image_cache)
   end
 
 end

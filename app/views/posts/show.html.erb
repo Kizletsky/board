@@ -1,7 +1,7 @@
 
 <article class="post">
   <section class="post-head">
-    <h2><%= @post.title %></h2>
+    <h1><%= @post.title %></h1>
     <small>
       <time><%= @post.created_at.to_date %></time>
       <%= link_to "Edit", edit_post_path(@post) %>
@@ -10,6 +10,7 @@
     </small>
   </section>
   <section class="post-body">
-    <%= @post.body %>
+    <%= image_tag(@post.image.url(:big), class: "image-show") if @post.image? %>
+    <p><%= @post.body %></p>
   </section>
 </article>
