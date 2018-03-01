@@ -13,11 +13,28 @@
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="<%= posts_path %>">All Posts</a>
+            <%= link_to "All Posts", posts_path, class: "nav-link" %>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="<%= new_post_path %>">New Post</a>
+            <%= link_to "New Post", new_post_path, class: "nav-link" %>
           </li>
+        </ul>
+        <ul class="navbar-nav pull-xs-right">
+            <% if user_signed_in? %>
+            <li>
+              <%= link_to "Profile", user_path(current_user), class: "nav-link" %>
+            </li>
+            <li>
+              <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "nav-link" %>
+            </li>
+            <% else %>
+            <li class="nav-item">
+              <%= link_to "Sign Up", new_user_registration_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Log In", new_user_session_path, class: "nav-link" %>
+            </li>
+            <% end %>
         </ul>
       </nav>
     </div>
@@ -26,7 +43,7 @@
         <div class="row">
           <div class="col-md-12">
             <% flash.each do |name, message| %>
-            <div class="alert alert-success">
+            <div class="alert <%= bootstrap_class_for(name)%>">
               <%= message %>
             </div>
             <% end %>

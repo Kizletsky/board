@@ -18,6 +18,7 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 2.5'
 gem 'carrierwave'
 gem 'mini_magick'
+gem 'devise'
 
 
 group :development, :test do

@@ -2,6 +2,7 @@
   <section class="post-head">
     <h2><%= link_to post.title, post_path(post) %></h2>
     <small>
+      <%= link_to post.user.username, user_path(post.user) %> 
       <time><%= post.created_at.to_date %></time>
     </small>
   </section>
