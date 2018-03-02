@@ -1,10 +1,12 @@
 class User < ApplicationRecord
+
   mount_uploader :avatar, ImageUploader
+  validates :username, presence: true, uniqueness: true, length: {in: 3..20}
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  validates :username, presence: true, length: {in: 3..20}
-
   has_many :posts
+  enum role: [ :user, :admin ]
+  
 end

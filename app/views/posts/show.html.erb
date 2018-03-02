@@ -3,9 +3,9 @@
   <section class="post-head">
     <h1><%= @post.title %></h1>
     <small>
-      <%= link_to @post.user.username, user_path(@post.user) %>  
+      <%= link_to @post.user.username, user_path(@post.user) %>
       <time><%= @post.created_at.to_date %></time>
-      <% if @post.user == current_user %>
+      <% if user_signed_in? and (current_user == @post.user or current_user.admin?) %>
         <%= link_to "Edit", edit_post_path(@post) %>
         |
         <%= link_to "Delete", post_path(@post), method: :delete, data: {confirm: "Are you sure ?"} %>

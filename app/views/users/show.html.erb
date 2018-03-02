@@ -2,16 +2,22 @@
 
   <%= image_tag(@user.avatar.url(:thumb), class: "img-thumbnail") if @user.avatar? %>
 
-  <div>
-    <h2>Email:</h2>
-    <%= @user.email %>
+  <div class="form-group">
+    <h2>Email: </h2>
+    <%= @user.email%>
   </div>
 
-  <div>
-    <h2>Username:</h2>
+  <div class="form-group">
+    <h2>Username: </h2>
     <%= @user.username %>
   </div>
 
-  <% if @user == current_user %>
-    <%= link_to "Edit", edit_user_registration_path, class: "btn btn-outline-primary" %>
-  <% end %>
+  <div class="form-group">
+    <h2>You Are: </h2>
+    <%= @user.role %>
+  </div>
+
+  <div >
+      <%= link_to "Edit", edit_user_registration_path, class: "btn btn-outline-primary" if current_user == @user %>
+      <%= link_to "Back", :back, class: "btn btn-outline-secondary"%>
+  </div>

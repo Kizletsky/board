@@ -22,6 +22,9 @@
         <ul class="navbar-nav pull-xs-right">
             <% if user_signed_in? %>
             <li>
+              <text class="navbar-text mr-5"> Welcome <%=current_user.username%></text>
+            </li>
+            <li>
               <%= link_to "Profile", user_path(current_user), class: "nav-link" %>
             </li>
             <li>
