@@ -20,4 +20,14 @@
     <%= image_tag(@post.image.url(:big), class: "image-show") if @post.image? %>
     <p><%= @post.body %></p>
   </section>
+  <div class="new-comment-btn">
+      <%= link_to "New Comment", new_post_comment_path(@post), remote: true, class: "btn btn-outline-primary" %>
+  </div>
+  <div class="comments">
+    <div class="comment-form"></div>
+    <div class="comments-content">
+      <%= render @post.comments.order("created_at DESC") %>
+    </div>
+  </div>
+
 </article>
