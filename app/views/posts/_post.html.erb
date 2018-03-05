@@ -2,12 +2,18 @@
   <section class="post-head">
     <h2><%= link_to post.title, post_path(post) %></h2>
     <small>
-      <%= link_to post.user.username, user_path(post.user) %> 
+      <%= link_to post.user.username, user_path(post.user) %>
       <time><%= post.created_at.to_date %></time>
     </small>
+    <div class="adress">
+      <span>Adress: <%= post.adress %></span>
+    </div>
   </section>
   <section class="post-body clearfix">
     <%= image_tag(post.image.url(:thumb), class: "img-thumbnail thumb") if post.image? %>
     <%= truncate(post.body, length: 160, separator: ' ') %>
+  </section>
+  <section>
+    <%= raw post.tags.map(&:name).map{ |t| link_to t, tag_path(t), class: "badge badge-pill badge-primary" }.join(" ") %>
   </section>
 </article>

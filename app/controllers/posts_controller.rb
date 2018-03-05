@@ -6,7 +6,7 @@ class PostsController < ApplicationController
 
 
   def index
-    @posts = Post.order("updated_at DESC")
+    @posts = Post.search(params[:keywords]).uniq
   end
 
   def show
@@ -59,13 +59,13 @@ class PostsController < ApplicationController
       @post = Post.find(params[:id])
     end
 
-    # strong params 
+    # strong params
     def post_params
-      params.require(:post).permit(:title, :body, :image, :image_cache)
+      params.require(:post).permit(:title, :body, :image, :image_cache, :status, :adress, :keywords, :post_tags)
     end
 
     def check_owner
       #check if current user is owner of the post
-      redirect_to @post, alert: "You are not the owner of this post" unless current_user == @post.user or current_user.admin?
+      redirect_to @post, alert: "You are not the owner of this post" unless current_user == @post.user || current_user.admin?
     end
 end

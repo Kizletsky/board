@@ -2,14 +2,24 @@
 <%= render "shared/errors", object: @post %>
 
 <div class="form-group">
+    <%= image_tag(@post.image.url(:thumb), class: "img-thumbnail") if @post.image? %>
+    <%= f.file_field :image, class: "form-control-file" %>
+    <%= f.hidden_field :image_cache %>
+</div>
+
+<div class="form-group">
     <%= f.label :title %>
     <%= f.text_field :title, class: "form-control" %>
 </div>
 
 <div class="form-group">
-    <%= image_tag(@post.image.url(:thumb), class: "img-thumbnail") if @post.image? %>
-    <%= f.file_field :image, class: "form-control-file" %>
-    <%= f.hidden_field :image_cache %>
+    <%= f.label :adress %>
+    <%= f.text_field :adress, class: "form-control" %>
+</div>
+
+<div class="form-group">
+    <%= f.label :post_tags %>
+    <%= f.text_field :post_tags, class: "form-control" %>
 </div>
 
 <div class="form-group">

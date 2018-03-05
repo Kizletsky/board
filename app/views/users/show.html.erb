@@ -18,6 +18,11 @@
   </div>
 
   <div >
-      <%= link_to "Edit", edit_user_registration_path, class: "btn btn-outline-primary" if current_user == @user %>
+      <% if user_signed_in? && (current_user == @user || current_user.admin?) %>
+        <% link = edit_user_path if current_user.admin?  %>
+        <% link = edit_user_registration_path if current_user == @user  %>
+        <%= link_to "Edit", link, class: "btn btn-outline-primary" %>
+      <% end %>
+
       <%= link_to "Back", :back, class: "btn btn-outline-secondary"%>
   </div>

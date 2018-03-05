@@ -10,16 +10,31 @@ class UsersController < ApplicationController
   end
 
   def show
-    # set_user
+    # set user
+  end
+
+  def edit
+    # set user
+    #check if admin
+  end
+
+  def update
+    if @user.update_attributes(user_params)
+      redirect_to @user , success: "User profile updated"
+    else
+      render :edit
+    end
   end
 
   def destroy
     # check if admin
     # set user
-    # destroy all posts created by this user and user
+    # destroy all posts created by this user
     @user.posts.each { |p| p.destroy}
     @user.destroy
-    redirect_to users_path, success: "User has been deleted !"
+     respond_to do |format|
+       format.js { flash.now[:success] = "User has been deleted !"}
+     end
   end
 
   private
@@ -30,6 +45,10 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def user_params
+    params.require(:user).permit(:username, :avatar, :avatar_cache, :role)
   end
 
 end

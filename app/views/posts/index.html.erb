@@ -1,3 +1,9 @@
 <h1>All Posts</h1>
 
+<div class="float-right">
+  <%= form_tag(posts_path, method: :get) do %>
+  <%= text_field_tag :keywords, params[:keywords]  %>
+  <%= submit_tag "Search" %>
+  <% end %>
+</div>
 <%= render @posts %>

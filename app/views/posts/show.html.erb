@@ -5,12 +5,16 @@
     <small>
       <%= link_to @post.user.username, user_path(@post.user) %>
       <time><%= @post.created_at.to_date %></time>
-      <% if user_signed_in? and (current_user == @post.user or current_user.admin?) %>
+      <% if user_signed_in? && (current_user == @post.user || current_user.admin?) %>
         <%= link_to "Edit", edit_post_path(@post) %>
         |
         <%= link_to "Delete", post_path(@post), method: :delete, data: {confirm: "Are you sure ?"} %>
       <% end %>
     </small>
+    <div class="adress">
+      <span class="label">Adress: </span>
+      <%= @post.adress %>
+    </div>
   </section>
   <section class="post-body">
     <%= image_tag(@post.image.url(:big), class: "image-show") if @post.image? %>
