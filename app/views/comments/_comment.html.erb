@@ -1,4 +1,19 @@
-<h1>Comment</h1>
-<div class="body">
-  <p><%= comment.body %></p>
+<div class="comment", id="<%= comment.id %>">
+  <div class="thumbnail-author">
+      <%= image_tag(comment.user.avatar.url(:user_thumb), class: "img-thumbnail thumb") %>
+  </div>
+  <div class="content">
+    <div class="header-author">
+      <%= link_to comment.user.username, user_path(comment.user) %>
+      <span>commented <%= time_ago_in_words(comment.created_at) %> ago</span>
+      <% if has_access(comment.user) %>
+      <%= link_to "Edit", edit_post_comment_path(comment.post, comment), remote: true %>
+      |
+      <%= link_to "Delete", post_comment_path(comment.post, comment), method: :delete, remote: true %>
+      <% end %>
+    </div>
+    <div class="body">
+      <p><%= comment.body %></p>
+    </div>
+  </div>
 </div>

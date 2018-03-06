@@ -4,7 +4,7 @@
 <%= render "shared/errors", object: @user %>
 
 <div class="form-group">
-  <%= image_tag(@user.avatar.url(:thumb), class: "img-thumbnail") if @user.avatar? %>
+  <%= image_tag(@user.avatar.url :user) %>
   <%= f.file_field :avatar, class: "form-control-file" %>
   <%= f.hidden_field :avatar_cache %>
 </div>

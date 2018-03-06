@@ -1,6 +1,6 @@
 <h1>Profile</h1>
 
-  <%= image_tag(@user.avatar.url(:thumb), class: "img-thumbnail") if @user.avatar? %>
+  <%= image_tag(@user.avatar.url :user) %>
 
   <div class="form-group">
     <h2>Email: </h2>
@@ -18,7 +18,7 @@
   </div>
 
   <div >
-      <% if user_signed_in? && (current_user == @user || current_user.admin?) %>
+      <% if has_access(@user) %>
         <% link = edit_user_path if current_user.admin?  %>
         <% link = edit_user_registration_path if current_user == @user  %>
         <%= link_to "Edit", link, class: "btn btn-outline-primary" %>

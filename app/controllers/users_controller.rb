@@ -29,8 +29,6 @@ class UsersController < ApplicationController
   def destroy
     # check if admin
     # set user
-    # destroy all posts created by this user
-    @user.posts.each { |p| p.destroy}
     @user.destroy
      respond_to do |format|
        format.js { flash.now[:success] = "User has been deleted !"}

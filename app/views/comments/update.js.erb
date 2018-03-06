@@ -1,0 +1,3 @@
+$(".new-comment-btn").show();
+$(".comments-form").empty();
+$("#<%= @comment.id %>").replaceWith("<%= j render @comment %>");

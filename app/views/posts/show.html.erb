@@ -5,7 +5,7 @@
     <small>
       <%= link_to @post.user.username, user_path(@post.user) %>
       <time><%= @post.created_at.to_date %></time>
-      <% if user_signed_in? && (current_user == @post.user || current_user.admin?) %>
+      <% if has_access(@post.user) %>
         <%= link_to "Edit", edit_post_path(@post) %>
         |
         <%= link_to "Delete", post_path(@post), method: :delete, data: {confirm: "Are you sure ?"} %>
@@ -17,17 +17,17 @@
     </div>
   </section>
   <section class="post-body">
-    <%= image_tag(@post.image.url(:big), class: "image-show") if @post.image? %>
+    <%= image_tag(@post.image.url(:post), class: "image-show") %>
     <p><%= @post.body %></p>
   </section>
-  <div class="new-comment-btn">
-      <%= link_to "New Comment", new_post_comment_path(@post), remote: true, class: "btn btn-outline-primary" %>
-  </div>
-  <div class="comments">
-    <div class="comment-form"></div>
-    <div class="comments-content">
-      <%= render @post.comments.order("created_at DESC") %>
-    </div>
-  </div>
-
 </article>
+
+<div class="comments">
+  <div class="comments-form"></div>
+  <div class="new-comment-btn">
+      <%= link_to "New Comment", new_post_comment_path(@post), remote: true, class: "btn btn-outline-primary" if user_signed_in? %>
+  </div>
+  <div class="comments-content">
+    <%= render @post.comments.order("created_at DESC") %>
+  </div>
+</div>

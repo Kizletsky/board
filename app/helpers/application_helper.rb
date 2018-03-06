@@ -10,4 +10,8 @@ module ApplicationHelper
     }[name.to_sym]
 
   end
+
+  def has_access(user)
+    current_user == user || current_user.admin? if user_signed_in?
+  end
 end

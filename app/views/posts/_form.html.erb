@@ -2,7 +2,7 @@
 <%= render "shared/errors", object: @post %>
 
 <div class="form-group">
-    <%= image_tag(@post.image.url(:thumb), class: "img-thumbnail") if @post.image? %>
+    <%= image_tag(@post.image.url(:post_thumb), class: "img-thumbnail") %>
     <%= f.file_field :image, class: "form-control-file" %>
     <%= f.hidden_field :image_cache %>
 </div>

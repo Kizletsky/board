@@ -1,4 +1,6 @@
-<%= form_for [@post, @post.comments.build], remote: true do |f| %>
+<%= form_for [@post, @comment], remote: true do |f| %>
+  <%= render "shared/errors", object: @comment %>
+
 <div class="form-group">
     <%= f.text_area :body, class: "form-control" %>
 </div>
