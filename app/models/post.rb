@@ -8,12 +8,23 @@ class Post < ApplicationRecord
   has_many :tags, through: :taggings
   has_many :comments, dependent: :destroy
 
-  def post_tags
-    tags.map(&:name).join(", ")
+#  def post_tags
+#    tags.map(&:name).join(", ")
+#  end
+#
+#  def post_tags=(names)
+#    self.tags = names.split(", ").map{ |t| Tag.where(name: t.strip).first_or_create }
+#  end
+# "tag1,tag2,tag3,"
+  def current_tags
+    tags.map(&:name).map{|t| t + ","}.join
   end
 
-  def post_tags=(names)
-    self.tags = names.split(", ").map{ |t| Tag.where(name: t.strip).first_or_create }
+  def current_tags=(values)
+    self.tags = values.split(",").map{ |t| Tag.where(name: t).first }
+    #logger.debug "SAVING HERE: "
+    #logger.debug values.split(",").map{ |t| Tag.where(name: t.strip).first  }
+    #values.split(",")
   end
 
   def self.search(keywords)

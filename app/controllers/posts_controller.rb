@@ -53,6 +53,7 @@ class PostsController < ApplicationController
     redirect_to posts_path, success: "Post successfully deleted !"
   end
 
+
   private
 
     def set_post
@@ -61,7 +62,7 @@ class PostsController < ApplicationController
 
     # strong params
     def post_params
-      params.require(:post).permit(:title, :body, :image, :image_cache, :status, :adress, :keywords, :post_tags)
+      params.require(:post).permit(:title, :body, :image, :image_cache, :status, :adress, :keywords, :current_tags)
     end
 
     def check_owner
