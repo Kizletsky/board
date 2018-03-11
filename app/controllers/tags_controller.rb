@@ -6,9 +6,10 @@ class TagsController < ApplicationController
 
   def create
     @tag = Tag.new(tag_params)
-    respond_to do |format|
-    @tag.save
-        format.json { render json: @tag }
+    if @tag.save
+      render json: @tag
+    else
+      render json: { errors: @tag.errors.full_messages }, status: 422
     end
   end
 
@@ -17,7 +18,5 @@ class TagsController < ApplicationController
   def tag_params
     params.permit(:name)
   end
-
-
 
 end

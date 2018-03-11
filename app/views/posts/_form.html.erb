@@ -17,28 +17,31 @@
     <%= f.text_field :adress, class: "form-control" %>
 </div>
 
-<div class="form-group">
+<div class="tags-container">
+    <ul class="tag-errors"></ul>
+    <p>tag can not contain spaces or commas</p>
     <%= text_field_tag "tag-field" %>
     <%= link_to "Create new tag", "" ,  class:"btn btn-outline-primary", id: "tag-link" %>
     <%= f.hidden_field :current_tags %>
-<div class="dropdown">
+    <div class="dropdown">
       <button class="btn btn-default dropdown-toggle all-tags" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Dropdown with selection
       </button>
       <ul class="dropdown-menu all-tags" aria-labelledby="dropdownMenu2">
         <% Tag.all.map(&:name).map do |t| %>
-          <li><input type="checkbox"><%= t %></li>
+          <li class="tag">
+            <input type="checkbox" value="<%=t%>">
+            <label for="<%=t%>"><%=t%></label>
+          </li>
         <% end %>
       </ul>
     </div>
+    <div class="current-tags">
+        <% @post.current_tags.split(",").map do |t| %>
+          <span class="badge badge-pill badge-primary tag"><%= t %></span>
+        <% end %>
+    </div>
 </div>
-
-<div class="current-tags">
-    <% @post.current_tags.split(",").map do |t| %>
-      <span class="badge badge-pill badge-primary tag"><%= t %></span>
-    <% end %>
-</div>
-
 
 <div class="form-group">
     <%= f.label :body %>
