@@ -1,7 +1,6 @@
 class TagsController < ApplicationController
   def show
-    @tag = Tag.find_by(tag_params)
-    @posts = @tag.posts
+    @tag = Tag.find_by(name: params[:id])
   end
 
   def create
@@ -15,7 +14,7 @@ class TagsController < ApplicationController
 
   private
 
-  def tag_params
+  def tag_params 
     params.permit(:name)
   end
 

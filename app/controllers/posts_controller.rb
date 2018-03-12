@@ -62,7 +62,7 @@ class PostsController < ApplicationController
 
     # strong params
     def post_params
-      params.require(:post).permit(:title, :body, :image, :image_cache, :status, :adress, :keywords, :current_tags)
+      params.require(:post).permit(:title, :body, :image, :image_cache, :status, :adress, :current_tags)
     end
 
     def check_owner

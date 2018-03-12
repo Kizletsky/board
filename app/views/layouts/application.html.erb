@@ -40,7 +40,13 @@
             <% end %>
         </ul>
       </nav>
+      <% if user_signed_in? && current_user.admin? %>
+        <div class="admin-panel">
+          <%= link_to "User list", users_path, class: "btn btn-outline-secondary" %>
+        </div>
+      <% end %>
     </div>
+
 
     <div class="container main-content">
       <div id="flash">

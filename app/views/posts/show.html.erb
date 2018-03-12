@@ -11,6 +11,9 @@
         <%= link_to "Delete", post_path(@post), method: :delete, data: {confirm: "Are you sure ?"} %>
       <% end %>
     </small>
+    <div class="post-tags">
+      <%= render "tags/tags", tags: @post.tags.map(&:name) %>
+    </div>
     <div class="adress">
       <span>Adress: </span>
       <%= @post.adress %>

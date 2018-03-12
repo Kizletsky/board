@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   before_action :authenticate_user!, except: [:show]
   before_action :set_user, except: [:index]
-  before_action :check_if_admin, except: [:show]
+  before_action :check_if_admin, except: [:show, :edit]
 
   def index
     # check if admin
@@ -15,7 +15,14 @@ class UsersController < ApplicationController
 
   def edit
     # set user
-    #check if admin
+    if current_user == @user
+      # redirect_to devise action
+      redirect_to edit_user_registration_path
+    else
+      # if current user is admin then render our own edit view, cause it doesn't make sense to let admin change user's login and password
+      # admin only can change username, user role and avatar, as well as delete whole user profile
+      check_if_admin
+    end
   end
 
   def update

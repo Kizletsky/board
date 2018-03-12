@@ -37,9 +37,7 @@
       </ul>
     </div>
     <div class="current-tags">
-        <% @post.current_tags.split(",").map do |t| %>
-          <span class="badge badge-pill badge-primary tag"><%= t %></span>
-        <% end %>
+        <%= render "tags/tags", tags: @post.current_tags.split(",") %>
     </div>
 </div>
 

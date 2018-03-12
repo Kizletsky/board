@@ -4,6 +4,6 @@ Rails.application.routes.draw do
   resources :posts do
     resources :comments
   end
-  resources :users
-  resources :tags
+  resources :users, except: [:create, :new]
+  resources :tags, only: [:show, :create]
 end
