@@ -18,7 +18,7 @@
     });
     // validate input
     $("#tag-field").on("keyup", function() {
-        const fieldRegExp = /^[^,| ]{1,30}$/gi
+        var fieldRegExp = /^[^,| ]{1,30}$/gi
         if(fieldRegExp.test($(this).val())){
           $(this).removeClass("invalid").addClass("valid");
           $("#tag-link").show();

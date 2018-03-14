@@ -1,9 +1,26 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+# t.string "title"
+# t.text "body"
+# t.datetime "created_at", null: false
+# t.datetime "updated_at", null: false
+# t.string "image"
+# t.integer "user_id"
+# t.boolean "status", default: true
+# t.string "adress"
+# t.index ["user_id"], name: "index_posts_on_user_id"
 
-one:
-  title: MyString
-  body: MyText
 
-two:
-  title: MyString
-  body: MyText
+post1:
+  title: testpost
+  body: lorem ipsum
+  user: user1
+
+post2:
+  title: testpost2
+  body: lorem ipsum
+  user: user2
+
+post3:
+  title: testpost3
+  body: lorem ipsum
+  user: admin
