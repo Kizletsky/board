@@ -1,0 +1,2 @@
+$(".favorite-link-<%=@post.id%>").empty()
+  .append("<%= j link_to 'Add to favorites', favorites_path(id: @post.id), method: :post, remote: true %>")

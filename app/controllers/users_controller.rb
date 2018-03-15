@@ -11,6 +11,7 @@ class UsersController < ApplicationController
 
   def show
     # set user
+    @rated_by_current = @user.ratings.find_by(author_id: current_user.id)
   end
 
   def edit
@@ -37,9 +38,7 @@ class UsersController < ApplicationController
     # check if admin
     # set user
     @user.destroy
-     respond_to do |format|
-       format.js { flash.now[:success] = "User has been deleted !"}
-     end
+    respond_to { |format| format.js { flash.now[:success] = "User has been deleted !"}}
   end
 
   private

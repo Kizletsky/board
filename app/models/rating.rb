@@ -1,4 +1,8 @@
 class Rating < ApplicationRecord
-  belongs_to :rated_user, class_name: "User"
-  belongs_to :rating_user, class_name: "User"
+  belongs_to :user
+  belongs_to :author, class_name: "User"
+
+  def self.choices
+    [1,2,3,4,5]
+  end
 end

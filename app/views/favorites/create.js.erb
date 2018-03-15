@@ -1,0 +1,2 @@
+$(".favorite-link-<%=@post.id%>").empty()
+  .append("<%= j link_to 'Remove from favorites', favorite_path(@post), method: :delete, remote: true %>");

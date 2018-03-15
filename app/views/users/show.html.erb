@@ -1,23 +1,41 @@
-<h1>Profile</h1>
 
-  <%= image_tag(@user.avatar.url :user) %>
 
-  <div class="form-group">
-    <h2>Email: </h2>
-    <%= @user.email%>
+<div class="profile">
+  <h1>Profile</h1>
+
+  <div class="profile-avatar">
+    <%= image_tag(@user.avatar.url :user) %>
   </div>
 
-  <div class="form-group">
-    <h2>Username: </h2>
-    <%= @user.username %>
+  <div class="profile-email">
+    <h2>Email: <span><%= @user.email%></span></h2>
   </div>
 
-  <div class="form-group">
-    <h2>You Are: </h2>
-    <%= @user.role %>
+  <div class="profile-username">
+    <h2>Username: <span><%= @user.username %></span></h2>
   </div>
 
-  <div >
+  <div class="profile-role">
+    <h2>Role: <span><%= @user.role %></span></h2>
+  </div>
+
+  <div class="profile-rating-container">
+    <div class="rating-average">
+      <h2>Average rating: <span><%= @user.calculate_average %></span></h2>
+    </div>
+    <% if user_signed_in? && current_user != @user %>
+    <div class="rating-inputs">
+      <% if @rated_by_current.blank? %>
+        <%= render "ratings/form", user: @user %>
+      <% else %>
+        <%= render @rated_by_current, user: @user %>
+      <% end %>
+    </div>
+    <% end %>
+  </div>
+
+  <div class="profile-links">
     <%= link_to "Edit", edit_user_path, class: "btn btn-outline-primary" if has_access(@user) %>
     <%= link_to "Back", :back, class: "btn btn-outline-secondary"%>
   </div>
+</div>

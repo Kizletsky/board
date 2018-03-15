@@ -1,0 +1,3 @@
+$(".rating").remove();
+$(".rating-inputs").append("<%= j render 'ratings/form', user: @profile %> ");
+$(".rating-average span").text("<%= @profile.calculate_average %> ");

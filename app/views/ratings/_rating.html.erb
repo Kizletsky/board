@@ -1,0 +1,4 @@
+<div class="rating">
+  <span>You rated this user by <%= rating.value %></span>
+  <%= link_to "remove rating", user_rating_path(user, rating), method: :delete, remote: true %>
+</div>
