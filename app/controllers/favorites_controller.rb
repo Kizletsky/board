@@ -1,13 +1,14 @@
 class FavoritesController < ApplicationController
 before_action :authenticate_user!
-before_action :set_post
+before_action :set_post, except: :index
 
   def index
-    
+    @favorites = current_user.favorite_posts
+    respond_to {|format| format.js}
   end
 
   def create
-    @fav_post = Favorite.create(post: @post, user: current_user)
+    Favorite.create(post: @post, user: current_user)
   end
 
   def destroy

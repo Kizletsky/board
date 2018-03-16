@@ -8,14 +8,8 @@
     <div class="adress">
       <span>Adress: <%= post.adress %></span>
     </div>
-    <div class="favorite-link-<%=post.id%>">
-      <% if post.favorites.find_by(user: current_user).blank? %>
-        <%= link_to "Add to favorites", favorites_path(id: post.id), method: :post, remote: true %>
-      <% else %>
-        <%= link_to "Remove from favorites", favorite_path(post), method: :delete, remote: true %>
-      <% end %>
-    </div>
-  </section>
+    <%= render "favorites/links", post: post %>
+    </section>
   <section class="post-body clearfix">
     <%= image_tag(post.image.url(:post_thumb), class: "img-thumbnail thumb") %>
     <%= truncate(post.body, length: 160, separator: ' ') %>

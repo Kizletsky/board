@@ -2,6 +2,7 @@
 <article class="post">
   <section class="post-head">
     <h1><%= @post.title %></h1>
+    <%= render 'favorites/links', post: @post %>
     <small>
       <%= link_to @post.user.username, user_path(@post.user) %>
       <time><%= @post.created_at.to_date %></time>

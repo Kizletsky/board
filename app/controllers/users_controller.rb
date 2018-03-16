@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, except: [:show]
   before_action :set_user, except: [:index]
   before_action :check_if_admin, except: [:show, :edit]
+  before_action :is_rated, only: [:show]
 
   def index
     # check if admin
@@ -11,7 +12,6 @@ class UsersController < ApplicationController
 
   def show
     # set user
-    @rated_by_current = @user.ratings.find_by(author_id: current_user.id)
   end
 
   def edit
@@ -53,6 +53,10 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:username, :avatar, :avatar_cache, :role)
+  end
+
+  def is_rated
+    @rated_by_current = @user.ratings.find_by(author_id: current_user.id) if user_signed_in?
   end
 
 end

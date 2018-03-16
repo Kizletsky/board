@@ -14,7 +14,6 @@ class User < ApplicationRecord
   enum role: [ :user, :admin ]
 
   def calculate_average
-    logger.debug "-----favorite posts: #{favorite_posts.count}"
     ratings.blank? ? 0 : ratings.map(&:value).inject(:+) / ratings.count.to_f
   end
 end

@@ -1,8 +1,13 @@
-<div class="favorite-post">
-  <div class="image">
-    <%= image_tag(post.image.url(:user_thumb), class: "img-thumbnail thumb") %>
+<% favorites.each do |post| %>
+<li class="favorite-post<%=post.id%>">
+  <%= image_tag post.image.url(:user_thumb), class: "img img-thumbnail" %>
+  <div class="favorite-head">
+    <%= link_to post.title, post_path(post)%>
+    |
+    <%= link_to "remove", favorite_path(post), method: :delete, remote: true %>
   </div>
-  <div class="">
-
+  <div class="favorite-body">
+    <p><%= post.body %></p>
   </div>
-</div>
+</li>
+<% end %>
