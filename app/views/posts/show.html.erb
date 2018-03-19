@@ -1,23 +1,29 @@
-
-<article class="post">
+<article class="post-show">
   <section class="post-head">
     <h1><%= @post.title %></h1>
-    <%= render 'favorites/links', post: @post %>
-    <small>
-      <%= link_to @post.user.username, user_path(@post.user) %>
-      <time><%= @post.created_at.to_date %></time>
-      <% if has_access(@post.user) %>
-        <%= link_to "Edit", edit_post_path(@post) %>
-        |
-        <%= link_to "Delete", post_path(@post), method: :delete, data: {confirm: "Are you sure ?"} %>
-      <% end %>
-    </small>
-    <div class="post-tags">
-      <%= render "tags/tags", tags: @post.tags.map(&:name) %>
+    <div class="favorite-link-container-<%=@post.id%>">
+      <%= render 'favorites/links', post: @post %>
     </div>
-    <div class="adress">
-      <span>Adress: </span>
-      <%= @post.adress %>
+    <div class="post-info">
+      <div class="info-top">
+        <span>Posted by</span>
+        <%= link_to @post.user.username, user_path(@post.user) %>
+        <time><%= @post.created_at.to_date %></time>
+        <% if has_access(@post.user) %>
+          <strong class="links">
+            <%= link_to "Edit", edit_post_path(@post) %>
+            |
+            <%= link_to "Delete", post_path(@post), method: :delete, data: {confirm: "Are you sure ?"} %>
+          </strong>
+        <% end %>
+      </div>
+      <div class="info-bottom">
+        <h3>Adress: <span><%= @post.adress %></span></h3>
+        <h3>Status: <span><%= @post.status %></span></h3>
+      <div class="tags">
+          <%= render "tags/tags", tags: @post.tags.map(&:name) %>
+        </div>
+      </div>
     </div>
   </section>
   <section class="post-body">

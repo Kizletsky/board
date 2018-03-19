@@ -19,27 +19,31 @@
             <%= link_to "New Post", new_post_path, class: "nav-link" %>
           </li>
           <% if user_signed_in? %>
-          <li class="nav-item">
-            <div class="dropdown show favorites" id="favorite-posts">
-              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <li class="nav-item dropdown favorites" id="favorite-posts">
+              <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 My favorite posts
               </a>
-              <ul class="dropdown-menu favorite-posts" aria-labelledby="dropdownMenuLink">
+              <ul class="dropdown-menu favorite-posts pre-scrollable" aria-labelledby="dropdownMenuLink">
                 <!-- FAV POSTS HERE -->
               </ul>
-            </div>
+          </li>
+          <li class="nav-item">
+            <%= link_to "User list", users_path, class: "nav-link" if current_user.admin? %>
           </li>
           <% end %>
           </ul>
-        <ul class="navbar-nav pull-xs-right">
+          <div class="navbar-nav mr-1 search">
+            <%= form_tag posts_path, method: :get, class: "form-inline" do %>
+            <%= text_field_tag :keywords, params[:keywords], class: "form-control mr-1 py-1" %>
+            <%= submit_tag "Search" %>
+            <% end %>
+          </div>
+          <ul class="navbar-nav">
             <% if user_signed_in? %>
-            <li>
-              <text class="navbar-text mr-5"> Welcome <%= current_user.username %></text>
-            </li>
-            <li>
+            <li class="nav-item">
               <%= link_to "Profile", user_path(current_user), class: "nav-link" %>
             </li>
-            <li>
+            <li class="nav-item">
               <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "nav-link" %>
             </li>
             <% else %>
@@ -50,15 +54,9 @@
               <%= link_to "Log In", new_user_session_path, class: "nav-link" %>
             </li>
             <% end %>
-        </ul>
+          </ul>
       </nav>
-      <% if user_signed_in? && current_user.admin? %>
-        <div class="admin-panel">
-          <%= link_to "User list", users_path, class: "btn btn-outline-secondary" %>
-        </div>
-      <% end %>
     </div>
-
 
     <div class="container main-content">
       <div id="flash">

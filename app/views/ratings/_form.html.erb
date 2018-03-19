@@ -1,5 +1,5 @@
 <%= form_for [user, Rating.new], remote: true do |f| %>
-<div class="rating-form">
+<div class="rating-form form-group">
   <%= f.select :value, Rating.choices %>
   <%= f.submit "Rate user" %>
 </div>

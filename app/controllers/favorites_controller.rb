@@ -4,7 +4,6 @@ before_action :set_post, except: :index
 
   def index
     @favorites = current_user.favorite_posts
-    respond_to {|format| format.js}
   end
 
   def create

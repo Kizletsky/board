@@ -2,16 +2,35 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-article.post
+article.post-preview
+  width: 50%
   margin-bottom: 1em
   padding: 1em 0
   border-bottom: 1px solid lightblue
   h1, h2
     margin-bottom: 0
   section.post-body
-    margin-top: 1em
+    margin-top: 0.2em
     .image-show
       margin-bottom: 2em
     .thumb
       float: left
       margin-right: 1em
+  section.tags
+    margin-top: 0.5em
+
+article.post-show
+  .info-top
+    margin-bottom: 1em
+    a
+      padding: 0 0.2em
+    .links
+      margin-left: 1.5em
+  .info-bottom
+    margin: 1em 0
+  h3 > span
+    color: blue
+  h3
+    margin-bottom: 0
+  .post-body > p
+    margin: 2em 0

@@ -7,9 +7,6 @@ class CommentsController < ApplicationController
 
   def new
     @comment = @post.comments.new
-    respond_to do |format|
-      format.js 
-    end
   end
 
   def create
@@ -25,7 +22,7 @@ class CommentsController < ApplicationController
   end
 
   def edit
-      respond_to do |format|
+    respond_to do |format|
       format.js { render action: "new" }
     end
   end
@@ -42,9 +39,6 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment.destroy
-    respond_to do |format|
-      format.js
-    end
   end
 
   private

@@ -1,26 +1,31 @@
-<h1>EDIT PROFILE IF ADMIN</h1>
+<div class="profile-edit">
+  <h1>Edit profile</h1>
 
-<%= form_for @user do |f| %>
-<%= render "shared/errors", object: @user %>
+  <%= form_for @user do |f| %>
+  <%= render "shared/errors", object: @user %>
 
-<div class="form-group">
-  <%= image_tag(@user.avatar.url :user) %>
-  <%= f.file_field :avatar, class: "form-control-file" %>
-  <%= f.hidden_field :avatar_cache %>
+  <div class="avatar">
+    <%= image_tag(@user.avatar.url(:user), class: "load-img") %>
+  </div>
+
+  <div class="load-file">
+    <%= f.file_field :avatar, class: "input-img" %>
+    <%= f.hidden_field :avatar_cache %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :username %>
+    <%= f.text_field :username, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :role %>
+    <%= f.select :role, User.roles.keys, {}, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+      <%= f.submit "Save", class: "btn btn-outline-primary" %>
+  </div>
+
+  <% end %>
 </div>
-
-<div class="form-group">
-  <%= f.label :username %>
-  <%= f.text_field :username, class: "form-control" %>
-</div>
-
-<div class="form-group">
-  <%= f.label :role %>
-  <%= f.select :role, User.roles.keys, class: "form-control" %>
-</div>
-
-<div class="form-group">
-    <%= f.submit "Save", class: "btn btn-outline-primary" %>
-</div>
-
-<% end %>

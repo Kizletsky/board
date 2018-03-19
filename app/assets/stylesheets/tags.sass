@@ -1,8 +1,19 @@
-input#tag-field
-  border-style: solid
-
-input.valid
-  border-color: green
-
-input.invalid
-  border-color: red
+.tags-container
+  margin: 1em auto
+  .inputs
+    margin: 2px 0
+    input
+      border-style: solid
+    input.invalid
+      border-color: red
+    input.valid
+      border-color: green
+  .dropdown
+    margin-top: 0.2em
+  .current-tags
+    margin-top: 0.4em
+    span
+      cursor: pointer
+  ul.all-tags
+    height: auto
+    max-height: 200px

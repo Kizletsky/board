@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 20180315143325) do
     t.datetime "updated_at", null: false
     t.string "image"
     t.integer "user_id"
-    t.boolean "status", default: true
+    t.integer "status", default: 0
     t.string "adress"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end

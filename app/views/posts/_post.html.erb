@@ -1,20 +1,21 @@
-<article class="post">
+<article class="post-preview">
   <section class="post-head">
+    <div class="favorite-link-container-<%=post.id%>">
+      <%= render "favorites/links", post: post %>
+    </div>
     <h2><%= link_to post.title, post_path(post) %></h2>
     <small>
+      <span>Posted by</span>
       <%= link_to post.user.username, user_path(post.user) %>
       <time><%= post.created_at.to_date %></time>
     </small>
-    <div class="adress">
-      <span>Adress: <%= post.adress %></span>
-    </div>
-    <%= render "favorites/links", post: post %>
-    </section>
+  </section>
+
   <section class="post-body clearfix">
     <%= image_tag(post.image.url(:post_thumb), class: "img-thumbnail thumb") %>
-    <%= truncate(post.body, length: 160, separator: ' ') %>
+    <p><%= truncate(post.body, length: 160, separator: ' ') %></p>
   </section>
-  <section>
+  <section class="tags">
     <%= raw post.tags.map(&:name).map{ |t| link_to t, tag_path(t), class: "badge badge-pill badge-primary" }.join %>
   </section>
 </article>

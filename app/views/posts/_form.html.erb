@@ -1,9 +1,15 @@
 <%= form_for @post do |f| %>
 <%= render "shared/errors", object: @post %>
 
+<% if !@post.new_record? %>
+  <div class="form-group">
+    <%= f.select :status, Post.statuses.keys %>
+  </div>
+<% end %>
+
 <div class="form-group">
-    <%= image_tag(@post.image.url(:post_thumb), class: "img-thumbnail") %>
-    <%= f.file_field :image, class: "form-control-file" %>
+    <%= image_tag(@post.image.url(:post_thumb), class: "img-thumbnail load-img") %>
+    <%= f.file_field :image, class: "form-control-file input-img" %>
     <%= f.hidden_field :image_cache %>
 </div>
 
@@ -19,19 +25,21 @@
 
 <div class="tags-container">
     <ul class="tag-errors"></ul>
-    <p>tag can not contain spaces or commas</p>
-    <%= text_field_tag "tag-field" %>
-    <%= link_to "Create new tag", "" ,  class:"btn btn-outline-primary", id: "tag-link" %>
+    <span>tag can not contain spaces or commas</span>
+    <div class="inputs">
+      <%= text_field_tag "tag-field" %>
+      <%= link_to "Create new tag", "" ,  class:"btn btn-outline-primary", id: "tag-link" %>
+    </div>
     <%= f.hidden_field :current_tags %>
     <div class="dropdown">
       <button class="btn btn-default dropdown-toggle all-tags" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Dropdown with selection
+        Select tags
       </button>
-      <ul class="dropdown-menu all-tags" aria-labelledby="dropdownMenu2">
+      <ul class="dropdown-menu all-tags pre-scrollable" aria-labelledby="dropdownMenu2">
         <% Tag.all.map(&:name).map do |t| %>
           <li class="tag">
             <input type="checkbox" value="<%=t%>">
-            <label for="<%=t%>"><%=t%></label>
+            <label><%=t%></label>
           </li>
         <% end %>
       </ul>

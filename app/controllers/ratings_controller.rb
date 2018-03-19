@@ -6,12 +6,10 @@ class RatingsController < ApplicationController
     @rating = @profile.ratings.new(rating_params)
     @rating.author = current_user
     @rating.save
-    respond_to { |format| format.js}
   end
 
   def destroy
     @profile.ratings.find(params[:id]).destroy
-    respond_to { |format| format.js}
   end
 
   private

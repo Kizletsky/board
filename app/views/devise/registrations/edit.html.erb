@@ -1,11 +1,11 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<h2>Edit profile</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
     <%= render "shared/errors", object: resource %>
 
   <div class="field form-group">
-    <%= image_tag(resource.avatar.url :user ) %>
-    <%= f.file_field :avatar, class: "form-control-file" %>
+    <%= image_tag(resource.avatar.url(:user), class: "load-img") %>
+    <%= f.file_field :avatar, class: "form-control-file input-img" %>
     <%= f.hidden_field :avatar_cache %>
   </div>
 

@@ -38,7 +38,10 @@ class UsersController < ApplicationController
     # check if admin
     # set user
     @user.destroy
-    respond_to { |format| format.js { flash.now[:success] = "User has been deleted !"}}
+    respond_to do |format|
+      format.js
+      format.html {redirect_to users_path, success: "User has been deleted" } 
+    end
   end
 
   private

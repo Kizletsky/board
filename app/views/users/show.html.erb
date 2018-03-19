@@ -1,26 +1,24 @@
-
-
-<div class="profile">
+<div class="profile-show">
   <h1>Profile</h1>
 
-  <div class="profile-avatar">
-    <%= image_tag(@user.avatar.url :user) %>
+  <div class="profile-row avatar">
+    <%= image_tag @user.avatar.url :user%>
   </div>
 
-  <div class="profile-email">
+  <div class="profile-row">
     <h2>Email: <span><%= @user.email%></span></h2>
   </div>
 
-  <div class="profile-username">
+  <div class="profile-row">
     <h2>Username: <span><%= @user.username %></span></h2>
   </div>
 
-  <div class="profile-role">
+  <div class="profile-row">
     <h2>Role: <span><%= @user.role %></span></h2>
   </div>
 
-  <div class="profile-rating-container">
-    <div class="rating-average">
+  <div class="rating-container">
+    <div class="rating-average profile-row">
       <h2>Average rating: <span><%= @user.calculate_average %></span></h2>
     </div>
     <% if user_signed_in? && current_user != @user %>
@@ -36,6 +34,6 @@
 
   <div class="profile-links">
     <%= link_to "Edit", edit_user_path, class: "btn btn-outline-primary" if has_access(@user) %>
-    <%= link_to "Back", :back, class: "btn btn-outline-secondary"%>
+    <%= link_to "Delete user", user_path(@user), method: :delete, class: "btn btn-outline-secondary" if user_signed_in? && current_user.admin? && current_user != @user %>
   </div>
 </div>

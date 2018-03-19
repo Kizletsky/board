@@ -8,5 +8,5 @@ Rails.application.routes.draw do
     resources :ratings, only: [:create, :destroy]
   end
   resources :tags, only: [:show, :create]
-  resources :favorites
+  resources :favorites, only: [:index, :create, :destroy]
 end
