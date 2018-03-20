@@ -7,7 +7,8 @@ before_action :set_post, except: :index
   end
 
   def create
-    Favorite.create(post: @post, user: current_user)
+    fav = Favorite.where(user: current_user, post: @post)
+    Favorite.create(post: @post, user: current_user) if fav.blank? 
   end
 
   def destroy
