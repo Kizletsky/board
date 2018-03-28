@@ -1,9 +1,9 @@
-class CommentsController < ApplicationController
+# frozen_string_literal: true
 
+class CommentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_post
-  before_action :set_comment, only: [:destroy, :update, :edit]
-
+  before_action :set_comment, only: %i[destroy update edit]
 
   def new
     @comment = @post.comments.new
@@ -16,23 +16,23 @@ class CommentsController < ApplicationController
       if @comment.save
         format.js
       else
-        format.js { render action: "new" }
+        format.js { render action: 'new' }
       end
     end
   end
 
   def edit
     respond_to do |format|
-      format.js { render action: "new" }
+      format.js { render action: 'new' }
     end
   end
 
   def update
     respond_to do |format|
-      if @comment.update_attributes(comment_params)
+      if @comment.update(comment_params)
         format.js
       else
-        format.js { render action: "new" }
+        format.js { render action: 'new' }
       end
     end
   end

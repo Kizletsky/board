@@ -24,7 +24,7 @@ default: &default
 development:
   <<: *default
   database: board_development
-  username: rails_dev
+  username: dev
   password: <%= ENV['DB_PASSWORD'] %>
   host: localhost
   port: 5432
@@ -61,7 +61,7 @@ development:
 test:
   <<: *default
   database: board_test
-  username: rails_dev
+  username: dev
   password: <%= ENV['DB_PASSWORD'] %>
   host: localhost
   port: 5432

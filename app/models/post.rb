@@ -1,35 +1,38 @@
+# frozen_string_literal: true
+
 class Post < ApplicationRecord
   mount_uploader :image, ImageUploader
-  validates :body, presence: true, length: { maximum: 2000}
-  validates :title, presence: true, length: { maximum: 100}
-  validates :adress, length: { maximum: 100}
+  validates :body, presence: true, length: { maximum: 2000 }
+  validates :title, presence: true, length: { maximum: 100 }
+  validates :adress, length: { maximum: 100 }
 
   belongs_to :user
-  has_many :taggings
+  has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
 
   def current_tags
-    tags.map(&:name).map{|t| t + ","}.join
+    tags.map(&:name).map { |t| t + ',' }.join
   end
 
   def current_tags=(values)
-    self.tags = values.split(",").map{ |t| Tag.where(name: t).first }
+    self.tags = values.split(',').map { |t| Tag.find_by(name: t) }
   end
 
-  enum status: [:active, :inactive]
+  enum status: %i[active inactive]
 
   def self.search(keywords)
-      if keywords.present?
-        includes(:user, :tags).where("lower (title) ILIKE :value OR
-                            lower (body) ILIKE :value OR
-                            lower (adress) ILIKE :value OR
-                            lower (users.username) ILIKE :value OR
-                            lower (tags.name) ILIKE :value",
-                            value: "%#{keywords.downcase}%").references(:user, :tags)
-      else
-        all.order("created_at DESC")
-      end
+    if keywords.present?
+      includes(:user, :tags).where("lower (title) ILIKE :value OR
+                                    lower (body) ILIKE :value OR
+                                    lower (adress) ILIKE :value OR
+                                    lower (users.username) ILIKE :value OR
+                                    lower (tags.name) ILIKE :value", value:
+                                    "%#{keywords.downcase}%").references(:user,
+                                                                         :tags)
+    else
+      all.order('created_at DESC')
+    end
   end
 end

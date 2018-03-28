@@ -9,7 +9,7 @@
         <span>Posted by</span>
         <%= link_to @post.user.username, user_path(@post.user) %>
         <time><%= @post.created_at.to_date %></time>
-        <% if has_access(@post.user) %>
+        <% if access?(@post.user) %>
           <strong class="links">
             <%= link_to "Edit", edit_post_path(@post) %>
             |

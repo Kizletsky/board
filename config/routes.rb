@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
-  root "posts#index"
+  root 'posts#index'
   devise_for :users
   resources :posts do
-    resources :comments, except: [:show, :index]
+    resources :comments, except: %i[show index]
   end
-  resources :users, except: [:create, :new] do
-    resources :ratings, only: [:create, :destroy]
+  resources :users, except: %i[create new] do
+    resources :ratings, only: %i[create destroy]
   end
-  resources :tags, only: [:show, :create]
-  resources :favorites, only: [:index, :create, :destroy]
+  resources :tags, only: %i[show create]
+  resources :favorites, only: %i[index create destroy]
 end

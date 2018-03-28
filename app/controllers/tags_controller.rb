@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TagsController < ApplicationController
   def show
     @tag = Tag.find_by(name: params[:id])
@@ -8,14 +10,13 @@ class TagsController < ApplicationController
     if @tag.save
       render json: @tag
     else
-      render json: { errors: @tag.errors.full_messages }, status: 422
+      render json: { errors: @tag.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
   private
 
-  def tag_params 
+  def tag_params
     params.permit(:name)
   end
-
 end

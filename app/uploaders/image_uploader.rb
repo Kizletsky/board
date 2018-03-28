@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ImageUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
@@ -19,8 +21,8 @@ class ImageUploader < CarrierWave::Uploader::Base
   #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
   # end
 
-  def default_url(*args)
-    ActionController::Base.helpers.asset_path([version_name, "default.png"].compact.join('_'))
+  def default_url(*_args)
+    ActionController::Base.helpers.asset_path([version_name, 'default.png'].compact.join('_'))
   end
 
   # Process files as they are uploaded:
@@ -47,11 +49,10 @@ class ImageUploader < CarrierWave::Uploader::Base
     process resize_to_fit: [200, 200]
   end
 
-
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   def extension_whitelist
-   %w(jpg jpeg gif png)
+    %w[jpg jpeg gif png]
   end
 
   # Override the filename of the uploaded files:
