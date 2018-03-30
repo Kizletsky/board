@@ -2,15 +2,8 @@ Rails:
   Enabled: true
 Style/Documentation:
   Enabled: false
-Metrics/MethodLength:
-  Max: 30
-Metrics/LineLength:
-  Max: 120
-Metrics/BlockLength:
-  Max: 65
-Style/ClassAndModuleChildren:
-  EnforcedStyle: compact
 AllCops:
   Exclude:
-    - 'config/initializers/devise.rb'
-    - 'config/environments/development.rb'
+    - config/**/*
+    - db/**/*
+    - bin/*

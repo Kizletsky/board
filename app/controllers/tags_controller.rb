@@ -10,7 +10,8 @@ class TagsController < ApplicationController
     if @tag.save
       render json: @tag
     else
-      render json: { errors: @tag.errors.full_messages }, status: :unprocessable_entity
+      render json: { errors: @tag.errors.full_messages }, status:
+                                                          :unprocessable_entity
     end
   end
 

@@ -7,38 +7,40 @@ class CommentsController < ApplicationController
 
   def new
     @comment = @post.comments.new
+    render json: @comment
   end
 
   def create
     @comment = @post.comments.new(comment_params)
     @comment.user = current_user
-    respond_to do |format|
       if @comment.save
-        format.js
+        render json: { comment: @comment,
+                       author: { id: @comment.user.id,
+                                 name: @comment.user.username,
+                                 avatar: @comment.user.avatar.url(:user_thumb) }
+                     }
       else
-        format.js { render action: 'new' }
+        render json: { errors: @comment.errors.full_messages }, status:
+        :unprocessable_entity
       end
-    end
   end
 
   def edit
-    respond_to do |format|
-      format.js { render action: 'new' }
-    end
+    render json: @comment
   end
 
   def update
-    respond_to do |format|
-      if @comment.update(comment_params)
-        format.js
-      else
-        format.js { render action: 'new' }
-      end
+    if @comment.update(comment_params)
+      render json: @comment
+    else
+      render json: { errors: @comment.errors.full_messages }, status:
+      :unprocessable_entity
     end
   end
 
   def destroy
     @comment.destroy
+      render json: @comment
   end
 
   private

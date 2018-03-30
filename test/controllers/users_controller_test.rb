@@ -2,19 +2,6 @@
 
 require 'test_helper'
 
-# t.string "email", default: "", null: false
-# t.string "encrypted_password", default: "", null: false
-# t.string "reset_password_token"
-# t.datetime "reset_password_sent_at"
-# t.datetime "remember_created_at"
-# t.datetime "created_at", null: false
-# t.datetime "updated_at", null: false
-# t.string "username"
-# t.string "avatar"
-# t.integer "role", default: 0, null: false
-# t.index ["email"], name: "index_users_on_email", unique: true
-# t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-
 class UsersControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
@@ -50,7 +37,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     get edit_user_path(@regular_user)
     assert_response :success
 
-    patch user_path(@regular_user), params: { user: { role: 'admin', username: 'updated' } }
+    patch user_path(@regular_user), params: { user: { role: 'admin',
+                                                      username: 'updated' } }
     assert_redirected_to user_path(@regular_user)
     assert_equal 'User profile updated', flash[:success]
   end
@@ -64,7 +52,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   test 'should not let regular user change his role' do
     sign_in @regular_user
-    patch user_path(@regular_user), params: { user: { role: 'admin', username: 'updated' } }
+    patch user_path(@regular_user), params: { user: { role: 'admin',
+                                                      username: 'updated' } }
     assert_redirected_to root_path
     @regular_user.reload
     assert_equal 'user', @regular_user.role

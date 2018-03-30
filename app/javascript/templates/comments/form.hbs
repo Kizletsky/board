@@ -1,0 +1,10 @@
+<form class={{class}} action="/posts/{{post_id}}/comments/{{id}}" accept-charset="UTF-8" data-remote="true" method="post">
+  <input name="utf8" value="✓" type="hidden">
+  <input name="_method" value={{method}} type="hidden">
+  <div class="form-group">
+    <textarea class="form-control" name="comment[body]" id="comment_body">{{body}}</textarea>
+  </div>
+  <div>
+    <input name="commit" value="Save" class="btn btn-outline-primary" data-disable-with="Save" type="submit">
+  </div>
+</form>

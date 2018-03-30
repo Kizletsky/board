@@ -1,0 +1,17 @@
+<div class="comment" id="comment-{{comment.id}}">
+  <div class="thumbnail-author">
+    <img src={{author.avatar}} class="img img-thumbnail" alt="author avatar">
+  </div>
+  <div class="content">
+    <div class="header-author">
+      <a href="/users/{{author.id}}">{{author.name}}</a>
+      <span>commented less than a minute ago</span>
+      <a data-remote="true" class="comment-edit" href="/posts/{{comment.post_id}}/comments/{{comment.id}}/edit">Edit</a>
+      |
+      <a data-remote="true" class="comment-delete" data-method="delete" href="/posts/{{comment.post_id}}/comments/{{comment.id}}">Delete</a>
+    </div>
+    <div class="body">
+      <p>{{comment.body}}</p>
+    </div>
+  </div>
+</div>

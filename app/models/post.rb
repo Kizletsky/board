@@ -24,13 +24,11 @@ class Post < ApplicationRecord
 
   def self.search(keywords)
     if keywords.present?
-      includes(:user, :tags).where("lower (title) ILIKE :value OR
-                                    lower (body) ILIKE :value OR
-                                    lower (adress) ILIKE :value OR
-                                    lower (users.username) ILIKE :value OR
-                                    lower (tags.name) ILIKE :value", value:
-                                    "%#{keywords.downcase}%").references(:user,
-                                                                         :tags)
+      includes(:user, :tags).where(
+        "lower (title) ILIKE :value OR lower (body) ILIKE :value OR
+         lower (adress) ILIKE :value OR lower (users.username) ILIKE :value OR
+         lower (tags.name) ILIKE :value", value: "%#{keywords.downcase}%"
+      ).references(:user, :tags)
     else
       all.order('created_at DESC')
     end
