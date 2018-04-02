@@ -7,3 +7,4 @@ AllCops:
     - config/**/*
     - db/**/*
     - bin/*
+    - node_modules/**/*

@@ -1,3 +1,0 @@
-$(".favorite-post<%=@post.id%>").remove();
-$(".favorite-link-container-<%=@post.id%>").empty()
-  .append("<%= j render 'favorites/links', post: @post %>")

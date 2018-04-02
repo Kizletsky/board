@@ -45,8 +45,8 @@ function editComment () {
 
 function updateComment () {
   $('.comments-form').on('ajax:success', '.edit_comment', function (e) {
-    var comment = e.detail[0]
-    $('#comment-' + comment.id).replaceWith(commentTemplate(comment))
+    var data = e.detail[0]
+    $('#comment-' + data.comment.id).replaceWith(commentTemplate(data))
     $(this).remove()
     $('.new-comment-btn').show()
   })

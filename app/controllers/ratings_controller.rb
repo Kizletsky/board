@@ -8,10 +8,14 @@ class RatingsController < ApplicationController
     @rating = @profile.ratings.new(rating_params)
     @rating.author = current_user
     @rating.save
+    @average = @profile.calculate_average
+    render json: { rating: @rating, user_id: @profile.id, average: @average }
   end
 
   def destroy
     @profile.ratings.find(params[:id]).destroy
+    @average = @profile.calculate_average
+    render json: { user_id: @profile.id, average: @average }
   end
 
   private

@@ -42,7 +42,7 @@ class UsersController < ApplicationController
     # set user
     @user.destroy
     respond_to do |format|
-      format.js
+      format.json { render json: @user.id }
       format.html { redirect_to users_path, success: 'User has been deleted' }
     end
   end

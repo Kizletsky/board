@@ -13,16 +13,12 @@ class CommentsController < ApplicationController
   def create
     @comment = @post.comments.new(comment_params)
     @comment.user = current_user
-      if @comment.save
-        render json: { comment: @comment,
-                       author: { id: @comment.user.id,
-                                 name: @comment.user.username,
-                                 avatar: @comment.user.avatar.url(:user_thumb) }
-                     }
-      else
-        render json: { errors: @comment.errors.full_messages }, status:
-        :unprocessable_entity
-      end
+    if @comment.save
+      render json: comment_data
+    else
+      render json: { errors: @comment.errors.full_messages }, status:
+      :unprocessable_entity
+    end
   end
 
   def edit
@@ -31,7 +27,7 @@ class CommentsController < ApplicationController
 
   def update
     if @comment.update(comment_params)
-      render json: @comment
+      render json: comment_data
     else
       render json: { errors: @comment.errors.full_messages }, status:
       :unprocessable_entity
@@ -40,7 +36,7 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment.destroy
-      render json: @comment
+    render json: @comment
   end
 
   private
@@ -55,5 +51,12 @@ class CommentsController < ApplicationController
 
   def set_comment
     @comment = @post.comments.find(params[:id])
+  end
+
+  def comment_data
+    { comment: @comment,
+      author: { id: @comment.user.id,
+                name: @comment.user.username,
+                avatar: @comment.user.avatar.url(:user_thumb) } }
   end
 end

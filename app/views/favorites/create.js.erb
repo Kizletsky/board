@@ -1,3 +1,0 @@
-$(".favorite-link-container-<%=@post.id%>").empty()
-  .append("<%= j render 'favorites/links', post: @post %>");
-$(".favorite-posts").append("<%= j render 'favorites/favorite', favorites: Array.wrap(@post) %>");
