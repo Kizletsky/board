@@ -3,15 +3,9 @@
   <head>
     <title>Board</title>
     <%= csrf_meta_tags %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'comments' %>
-    <%= javascript_pack_tag 'favorites' %>
-    <%= javascript_pack_tag 'ratings' %>
-    <%= javascript_pack_tag 'users' %>
-    <%= javascript_pack_tag 'tags' %>
-    <%= javascript_pack_tag 'images' %>
+    <%= javascript_pack_tag 'index' %>
   </head>
 
   <body>
@@ -25,7 +19,7 @@
             <%= link_to "New Post", new_post_path, class: "nav-link" %>
           </li>
           <% if user_signed_in? %>
-          <li class="nav-item dropdown favorites" id="favorite-posts">
+          <li class="nav-item dropdown favorites" id="favorite-posts" data-init="favorites">
               <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 My favorite posts
               </a>

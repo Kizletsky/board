@@ -1,4 +1,4 @@
-<%= form_for @post do |f| %>
+<%= form_for @post, data: {init: :images} do |f| %>
 <%= render "shared/errors", object: @post %>
 
 <% if !@post.new_record? %>
@@ -23,7 +23,7 @@
     <%= f.text_field :adress, class: "form-control" %>
 </div>
 
-<div class="tags-container">
+<div class="tags-container" data-init="tags">
     <ul class="tag-errors"></ul>
     <span>tag can not contain spaces or commas</span>
     <div class="inputs">

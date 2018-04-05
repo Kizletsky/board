@@ -1,6 +1,6 @@
 // FOR TAGS IN POST FORM
 /* global $ */
-$(document).on('turbolinks:load', function () {
+export function initTags () {
   // clear input
   $('#tag-field').val('')
   // when dropdown is clicked, refresh all checkboxes
@@ -12,8 +12,8 @@ $(document).on('turbolinks:load', function () {
     })
   })
   // add tag to current post tags or remove when checkbox is clicked
-  $('ul.all-tags').on('click', 'input:checkbox', function () {
-    var tagName = $(this).val()
+  $('ul.all-tags').on('click', 'input:checkbox, label', function () {
+    var tagName = $(this).val() === '' ? $(this).text() : $(this).val()
     containTag(tagName) === -1 ? addTag(tagName) : removeTag(tagName)
   })
   // validate input
@@ -93,4 +93,4 @@ $(document).on('turbolinks:load', function () {
     // search in current tags by name, if it doesn't exists return -1 else return first char index
     return $('#post_current_tags').val().search(tagRegExp(name))
   }
-})
+}

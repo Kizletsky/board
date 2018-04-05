@@ -1,5 +1,5 @@
 /* global $, FileReader */
-$(document).on('turbolinks:load', function () {
+export function initImages () {
   function readURL (input) {
     if (input.files && input.files[0]) {
       var reader = new FileReader()
@@ -16,4 +16,4 @@ $(document).on('turbolinks:load', function () {
   $('.input-img').on('change', function () {
     readURL(this)
   })
-})
+}

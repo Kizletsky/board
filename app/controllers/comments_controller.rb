@@ -14,7 +14,7 @@ class CommentsController < ApplicationController
     @comment = @post.comments.new(comment_params)
     @comment.user = current_user
     if @comment.save
-      render json: comment_data
+      broadcast_comment
     else
       render json: { errors: @comment.errors.full_messages }, status:
       :unprocessable_entity
@@ -27,7 +27,7 @@ class CommentsController < ApplicationController
 
   def update
     if @comment.update(comment_params)
-      render json: comment_data
+      broadcast_comment
     else
       render json: { errors: @comment.errors.full_messages }, status:
       :unprocessable_entity
@@ -36,7 +36,7 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment.destroy
-    render json: @comment
+    broadcast_comment
   end
 
   private
@@ -53,10 +53,20 @@ class CommentsController < ApplicationController
     @comment = @post.comments.find(params[:id])
   end
 
+  def broadcast_comment
+    ActionCable.server.broadcast "comments:#{@post.id}", comment_data
+  end
+
+  def access?
+    current_user == @comment.user || current_user.admin?
+  end
+
   def comment_data
     { comment: @comment,
       author: { id: @comment.user.id,
                 name: @comment.user.username,
-                avatar: @comment.user.avatar.url(:user_thumb) } }
+                avatar: @comment.user.avatar.url(:user_thumb) },
+      access: access?,
+      action: action_name }
   end
 end

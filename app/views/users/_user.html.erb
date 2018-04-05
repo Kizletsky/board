@@ -1,5 +1,5 @@
   <% unless user == current_user %>
-  <tr id="user-row-<%= user.id %>">
+  <tr id="user-row-<%= user.id %>" data-init="users">
     <td><%= user.email %></td>
     <td><%= user.username %></td>
     <td><%= user.role %></td>

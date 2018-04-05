@@ -6,9 +6,11 @@
     <div class="header-author">
       <a href="/users/{{author.id}}">{{author.name}}</a>
       <span>commented less than a minute ago</span>
+      {{#if access}}
       <a data-remote="true" class="comment-edit" href="/posts/{{comment.post_id}}/comments/{{comment.id}}/edit">Edit</a>
       |
       <a data-remote="true" class="comment-delete" data-method="delete" href="/posts/{{comment.post_id}}/comments/{{comment.id}}">Delete</a>
+      {{/if}}
     </div>
     <div class="body">
       <p>{{comment.body}}</p>

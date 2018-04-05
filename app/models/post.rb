@@ -2,6 +2,12 @@
 
 class Post < ApplicationRecord
   mount_uploader :image, ImageUploader
+  include PgSearch
+  pg_search_scope :search_scope, against: %i[title body adress],
+                                 associated_against: { user: :username,
+                                                       tags: :name,
+                                                       comments: :body }
+
   validates :body, presence: true, length: { maximum: 2000 }
   validates :title, presence: true, length: { maximum: 100 }
   validates :adress, length: { maximum: 100 }
@@ -12,6 +18,8 @@ class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
 
+  enum status: %i[active inactive]
+
   def current_tags
     tags.map(&:name).map { |t| t + ',' }.join
   end
@@ -20,17 +28,7 @@ class Post < ApplicationRecord
     self.tags = values.split(',').map { |t| Tag.find_by(name: t) }
   end
 
-  enum status: %i[active inactive]
-
   def self.search(keywords)
-    if keywords.present?
-      includes(:user, :tags).where(
-        "lower (title) ILIKE :value OR lower (body) ILIKE :value OR
-         lower (adress) ILIKE :value OR lower (users.username) ILIKE :value OR
-         lower (tags.name) ILIKE :value", value: "%#{keywords.downcase}%"
-      ).references(:user, :tags)
-    else
-      all.order('created_at DESC')
-    end
+    keywords.present? ? search_scope(keywords) : all.order('created_at DESC')
   end
 end

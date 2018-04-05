@@ -12,9 +12,16 @@ class User < ApplicationRecord
   has_many :ratings, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :favorite_posts, through: :favorites, source: 'post'
+
   enum role: %i[user admin]
 
   def calculate_average
-    ratings.blank? ? 0 : ratings.map(&:value).inject(:+) / ratings.count.to_f
+    if ratings.blank?
+      0
+    else
+      sql = "SELECT value FROM ratings WHERE user_id = #{id}"
+      values = ActiveRecord::Base.connection.execute(sql).values.sum
+      values.sum / values.count.to_f
+    end
   end
 end

@@ -1,15 +1,16 @@
 /* global $ */
-const favoriteTemplate = require('../templates/favorites/favorite.hbs')
-const addLink = require('../templates/favorites/add_link.hbs')
-const removeLink = require('../templates/favorites/remove_link.hbs')
+const favoriteTemplate = require('./templates/favorites/favorite.hbs')
+const addLink = require('./templates/favorites/add_link.hbs')
+const removeLink = require('./templates/favorites/remove_link.hbs')
 
-$(document).on('turbolinks:load', function () {
-  indexFavorite()
-  createFavorite()
-  destroyFavorite()
-})
+export function initFavorites () {
+  getUserFavorites()
+  appendFavorite()
+  removeFromFavorites()
+  dontCloseDropdown()
+}
 
-function indexFavorite () {
+function getUserFavorites () {
   $('#favorite-posts > a').on('click', function () {
     if ($(this).attr('aria-expanded') === 'false') {
       $.ajax({
@@ -26,7 +27,7 @@ function indexFavorite () {
   })
 }
 
-function createFavorite () {
+function appendFavorite () {
   $('.favorite-link').on('ajax:success', 'a.add', function (e) {
     var post = e.detail[0]
     $('.favorite-posts').append(favoriteTemplate(post))
@@ -34,7 +35,7 @@ function createFavorite () {
   })
 }
 
-function destroyFavorite () {
+function removeFromFavorites () {
   $('.favorite-link').on('ajax:success', 'a.remove', function (e) {
     var post = e.detail[0]
     $('.favorite-post' + post.id).remove()
@@ -44,5 +45,11 @@ function destroyFavorite () {
     var post = e.detail[0]
     $('.favorite-post' + post.id).remove()
     $('.favorite-link-container-' + post.id + ' > .favorite-link').empty().append(addLink(post))
+  })
+}
+
+function dontCloseDropdown () {
+  $('ul.favorite-posts').on('click', function (e) {
+    e.stopPropagation()
   })
 }

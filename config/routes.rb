@@ -2,6 +2,7 @@
 
 Rails.application.routes.draw do
   root 'posts#index'
+  mount ActionCable.server => '/cable'
   devise_for :users
   resources :posts do
     resources :comments, except: %i[show index]
