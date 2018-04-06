@@ -7,5 +7,4 @@ test:
 
 production:
   adapter: redis
-  url: redis://localhost:6379/1
-  channel_prefix: board_production
+  url:  redis://redistogo:073d6367a2b0edfc07dacc50228149f6@tarpon.redistogo.com:11606/
