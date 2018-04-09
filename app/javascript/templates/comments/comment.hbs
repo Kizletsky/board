@@ -5,7 +5,7 @@
   <div class="content">
     <div class="header-author">
       <a href="/users/{{author.id}}">{{author.name}}</a>
-      <span>commented less than a minute ago</span>
+      <span>commented {{time_ago}} ago</span>
       {{#if access}}
       <a data-remote="true" class="comment-edit" href="/posts/{{comment.post_id}}/comments/{{comment.id}}/edit">Edit</a>
       |

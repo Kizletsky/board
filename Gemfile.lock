@@ -442,7 +442,7 @@ DEPENDENCIES
   rubocop
   sass-rails (~> 5.0)
   selenium-webdriver
-  slim (~> 3.0)
+  slim
   spring
   spring-watcher-listen (~> 2.0.0)
   turbolinks (~> 5)

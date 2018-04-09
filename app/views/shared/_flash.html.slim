@@ -1,0 +1,6 @@
+.test
+  .row
+    .col-md-12
+      - flash.each do |name, message|
+        div class=("alert #{bootstrap_class_for(name)}")
+          = message

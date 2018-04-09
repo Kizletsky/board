@@ -1,0 +1,38 @@
+= form_for @post, data: {init: :images} do |f|
+  = render "shared/errors", object: @post
+  - if !@post.new_record?
+    .form-group
+      = f.select :status, Post.statuses.keys
+  .form-group
+    = image_tag(@post.image.url(:post_thumb), class: "img-thumbnail load-img")
+    = f.file_field :image, class: "form-control-file input-img"
+    = f.hidden_field :image_cache
+  .form-group
+    = f.label :title
+    = f.text_field :title, class: "form-control"
+  .form-group
+    = f.label :adress
+    = f.text_field :adress, class: "form-control"
+  .tags-container data-init="tags"
+    ul.tag-errors
+    span tag can not contain spaces or commas
+    .inputs
+      = text_field_tag "tag-field"
+      = link_to "Create new tag", "" ,  class:"btn btn-outline-primary", id: "tag-link"
+    = f.hidden_field :current_tags
+    .dropdown
+      button#dropdownMenu2.btn.btn-default.dropdown-toggle.all-tags aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" type="button"
+        | Select tags
+      ul.dropdown-menu.all-tags.pre-scrollable aria-labelledby="dropdownMenu2"
+        - Tag.all.map(&:name).map do |t|
+          li.tag
+            input type="checkbox" value=t /
+            label= t
+    .current-tags
+      = render "tags/tags", tags: @post.current_tags.split(",")
+  .form-group
+    = f.label :body
+    = f.text_area :body, class: "form-control", rows: "10"
+  .form-group
+    = f.submit "Save", class: "btn btn-outline-primary"
+    = link_to "Back", :back, class: "btn btn-outline-secondary"

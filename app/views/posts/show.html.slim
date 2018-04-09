@@ -1,0 +1,32 @@
+article.post-show data-init="comments" data-post-id="#{@post.id}"
+  section.post-head
+    h1= @post.title
+    div class="favorite-link-container-#{@post.id}"
+      = render 'favorites/links', post: @post
+    .post-info
+      .info-top
+        span Posted by
+        = link_to @post.user.username, user_path(@post.user)
+        time= @post.created_at.to_date
+        - if access?(@post.user)
+          strong.links
+            => link_to "Edit", edit_post_path(@post)
+            |
+            = link_to "Delete", post_path(@post), method: :delete, data: {confirm: "Are you sure ?"}
+      .info-bottom
+        h3
+          | Adress:
+          span= @post.adress
+        h3
+          | Status:
+          span= @post.status
+        .tags
+          = render "tags/tags", tags: @post.tags.map(&:name)
+  section.post-body
+    = image_tag(@post.image.url(:post), class: "image-show")
+    p= @post.body
+.comments
+  .comments-form
+  .new-comment-btn
+    = link_to "New Comment", new_post_comment_path(@post), remote: true, class: "btn btn-outline-primary" if user_signed_in?
+  .comments-content

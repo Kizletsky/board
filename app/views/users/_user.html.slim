@@ -1,0 +1,9 @@
+- unless user == current_user
+  tr data-init="users" id="user-row-#{user.id}"
+    td= user.email
+    td= user.username
+    td= user.role
+    td
+      = link_to "Show", user_path(user), class: "btn btn-outline-secondary"
+      = link_to "Edit", edit_user_path(user), class: "btn btn-outline-secondary"
+      = link_to "Delete", user_path(user), method: :delete, data: {confirm: "Are you sure?"}, remote: true, class: "btn btn-outline-secondary user-remove"

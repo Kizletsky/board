@@ -1,0 +1,44 @@
+doctype html
+html
+  head
+    meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
+    title Board
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'index'
+  body
+    .container
+      nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+        ul.navbar-nav.mr-auto
+          li.nav-item
+            = link_to "All Posts", posts_path, class: "nav-link"
+          li.nav-item
+            = link_to "New Post", new_post_path, class: "nav-link"
+          - if user_signed_in?
+            li#favorite-posts.nav-item.dropdown.favorites data-init="favorites"
+              a#dropdownMenuLink.nav-link.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button"
+                | My favorite posts
+              ul.dropdown-menu.favorite-posts.pre-scrollable aria-labelledby="dropdownMenuLink"
+                /! FAV POSTS HERE
+            li.nav-item
+              = link_to "User list", users_path, class: "nav-link" if current_user.admin?
+        .navbar-nav.mr-1.search
+          = form_tag posts_path, method: :get, class: "form-inline" do
+            = text_field_tag :keywords, params[:keywords], class: "form-control mr-1 py-1"
+            = submit_tag "Search"
+        ul.navbar-nav
+          - if user_signed_in?
+            li.nav-item
+              = link_to "Profile", user_path(current_user), class: "nav-link"
+            li.nav-item
+              = link_to "Log Out", destroy_user_session_path, method: :delete, class: "nav-link"
+          - else
+            li.nav-item
+              = link_to "Sign Up", new_user_registration_path, class: "nav-link"
+            li.nav-item
+              = link_to "Log In", new_user_session_path, class: "nav-link"
+    .container.main-content
+      #flash
+        = render "shared/flash"
+      = yield

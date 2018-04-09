@@ -1,0 +1,25 @@
+.profile-show data-profile-id="#{@user.id}"
+  h1 Profile
+  .profile-row.avatar
+    = image_tag @user.avatar.url :user
+  .profile-row
+    h2
+      | Email:
+      span= @user.email
+  .profile-row
+    h2
+      | Username:
+      span= @user.username
+  .profile-row
+    h2
+      | Role:
+      span= @user.role
+  .rating-container data-init="ratings"
+    .rating-average.profile-row
+      h2
+        | Average rating:
+        span= @user.calculate_average
+    .rating-inputs
+  .profile-links
+    = link_to "Edit", edit_user_path, class: "btn btn-outline-primary" if access?(@user)
+    = link_to "Delete user", user_path(@user), method: :delete, class: "btn btn-outline-secondary" if user_signed_in? && current_user.admin? && current_user != @user

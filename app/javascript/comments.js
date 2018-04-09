@@ -5,6 +5,7 @@ const errorsTemplate = require('./templates/shared/errors.hbs')
 
 export function initComments () {
   subscribeOnComments()
+  loadComments()
   onCreateSuccess()
   onNewSuccess()
   onEditSuccess()
@@ -49,6 +50,19 @@ function destroyComment (data) {
 
 function currentPostId () {
   return $('article.post-show').data('post-id')
+}
+
+function loadComments () {
+  var postID = currentPostId()
+  $.ajax({
+    type: 'GET',
+    url: `/posts/${postID}/comments`,
+    success: function (comments) {
+      comments.forEach(function (comment) {
+        appendNewComment(comment)
+      })
+    }
+  })
 }
 
 function onNewSuccess () {

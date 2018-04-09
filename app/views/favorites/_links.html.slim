@@ -1,0 +1,6 @@
+- if user_signed_in?
+  .favorite-link
+    - if post.favorites.find_by(user: current_user).blank?
+      = link_to "Add to favorites", favorites_path(id: post.id), method: :post, remote: true, class: "btn btn-primary add"
+    - else
+      = link_to "Remove from favorites", favorite_path(post), method: :delete, remote: true, class: "btn btn-primary remove"

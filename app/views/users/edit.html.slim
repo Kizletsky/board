@@ -1,0 +1,17 @@
+.profile-edit data-init="images"
+  h1 Edit profile
+  = form_for @user do |f|
+    = render "shared/errors", object: @user
+    .avatar
+      = image_tag(@user.avatar.url(:user), class: "load-img")
+    .load-file
+      = f.file_field :avatar, class: "input-img"
+      = f.hidden_field :avatar_cache
+    .form-group
+      = f.label :username
+      = f.text_field :username, class: "form-control"
+    .form-group
+      = f.label :role
+      = f.select :role, User.roles.keys, {}, class: "form-control"
+    .form-group
+      = f.submit "Save", class: "btn btn-outline-primary"

@@ -1,9 +1,20 @@
 # frozen_string_literal: true
 
 class CommentsController < ApplicationController
-  before_action :authenticate_user!
+  include ActionView::Helpers::DateHelper
+  before_action :authenticate_user!, except: :index
   before_action :set_post
   before_action :set_comment, only: %i[destroy update edit]
+
+  def index
+    @comments = @post.comments
+    @json = []
+    @comments.each do |comment|
+      @comment = comment
+      @json << comment_data
+    end
+    render json: @json
+  end
 
   def new
     @comment = @post.comments.new
@@ -67,6 +78,7 @@ class CommentsController < ApplicationController
                 name: @comment.user.username,
                 avatar: @comment.user.avatar.url(:user_thumb) },
       access: access?,
-      action: action_name }
+      action: action_name,
+      time_ago: time_ago_in_words(@comment.created_at) }
   end
 end

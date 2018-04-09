@@ -4,13 +4,13 @@ const addLink = require('./templates/favorites/add_link.hbs')
 const removeLink = require('./templates/favorites/remove_link.hbs')
 
 export function initFavorites () {
-  getUserFavorites()
+  fillFavoritesDropdownOnClick()
   appendFavorite()
   removeFromFavorites()
   dontCloseDropdown()
 }
 
-function getUserFavorites () {
+function fillFavoritesDropdownOnClick () {
   $('#favorite-posts > a').on('click', function () {
     if ($(this).attr('aria-expanded') === 'false') {
       $.ajax({

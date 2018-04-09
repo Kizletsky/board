@@ -4,6 +4,16 @@ class RatingsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_profile
 
+  def index
+    if @profile != current_user
+      @rating = @profile.ratings.find_by(author_id: current_user.id)
+      @state = @rating.blank? ? 'form' : 'rating'
+      render json: { rating: @rating, state: @state, user_id: @profile.id }
+    else
+      render json: { state: '' }
+    end
+  end
+
   def create
     @rating = @profile.ratings.new(rating_params)
     @rating.author = current_user
